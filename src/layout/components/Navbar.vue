@@ -112,9 +112,11 @@ export default {
       .avatar-wrapper {
         margin-top: 5px;
         position: relative;
+        cursor: pointer;
        span {
-          color: rgb(64, 158, 255);
+          color: #28a745;
           font-weight: 700;
+          font-size: 18px;
        }
         .user-avatar {
           cursor: pointer;
