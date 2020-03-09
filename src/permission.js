@@ -28,27 +28,35 @@ router.beforeEach((to, from, next) => {
       next({ path: '/' })
       NProgress.done()
     } else {
+      const hasGetUserInfo = store.getters.name
+      if (hasGetUserInfo) {
+        next()
+      } else {
         store.dispatch('user/getInfo').then((data)=>{
           const { name } = data
           if(name == 'school_admin'){
             router.options.routes = schoolRoutes;//如果没有这一段就不会生效这是因为，router.options.routes 不是响应式的。
             router.addRoutes(schoolRoutes)
-            next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
+            // next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
+            next({ path: '/' })
           }else if(name == 'college_admin'){
             router.options.routes = collegeRoutes;//如果没有这一段就不会生效这是因为，router.options.routes 不是响应式的。
             router.addRoutes(collegeRoutes)
             // console.log(collegeRoutes);
             
-            next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
+            // next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
+            next({ path: '/' })
           }else{
             store.dispatch('user/resetToken')
             Message.error(error || 'Has Error')
             next(`/login?redirect=${to.path}`)
             NProgress.done()
           }
-          next()
         })
         next()
+      }
+       
+       
     }
   } else {
     /* has no token*/

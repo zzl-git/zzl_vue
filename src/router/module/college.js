@@ -9,7 +9,7 @@ import Layout from '@/layout'
         children: [{
           path: 'College_Index',
           name: 'CollegeIndex',
-          component: () => import('@/views/home/index'),
+          component: () => import('@/views/College/College_Home/index'),
           meta: { title: '学院首页', icon: 'dashboard' }
         }]
       },

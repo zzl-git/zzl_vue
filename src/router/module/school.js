@@ -8,7 +8,7 @@ import Layout from '@/layout'
         children: [{
           path: 'School_Index',
           name: 'SchoolIndex',
-          component: () => import('@/views/home/index'),
+          component: () => import('@/views/School/School_Home/index'),
           meta: { title: '学校首页', icon: 'dashboard' }
         }]
       },
