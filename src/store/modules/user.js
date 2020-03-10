@@ -57,7 +57,6 @@ const actions = {
 
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
-        console.log(data);
         
         resolve(data)
       }).catch(error => {

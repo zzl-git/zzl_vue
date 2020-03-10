@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
           }else{
             store.dispatch('user/resetToken')
             Message.error(error || 'Has Error')
-            next(`/login?redirect=${to.path}`)
+            next('/login')
             NProgress.done()
           }
         })
@@ -64,7 +64,7 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       // other pages that do not have permission to access are redirected to the login page.
-      next(`/login?redirect=${to.path}`)
+      next('/login')
       NProgress.done()
     }
   }
