@@ -7,7 +7,7 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <span>{{name}}</span>
+          <span>{{title}}</span>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -31,6 +31,11 @@ import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 
 export default {
+  data() {
+    return {
+      title: ''
+    }
+  },
   components: {
     Breadcrumb,
     Hamburger
@@ -39,8 +44,14 @@ export default {
     ...mapGetters([
       'sidebar',
       'avatar',
-      'name'
     ])
+  },
+  mounted(){
+    this.$store.dispatch('user/getInfo').then((data)=>{
+      let { introduction } = data
+      this.title = introduction
+      
+    })
   },
   methods: {
     toggleSideBar() {
@@ -129,8 +140,8 @@ export default {
           cursor: pointer;
           position: absolute;
           right: -20px;
-          top: 20px;
-          font-size: 12px;
+          top: 14px;
+          font-size: 20px;
         }
       }
     }

@@ -11,12 +11,12 @@ const tokens = {
 const users = {
   'school_token': {
     roles: ['school'],
-    introduction: 'I am a super administrator',
+    introduction: '超级管理员',
     name: 'school_admin'
   },
   'college_token': {
     roles: ['college'],
-    introduction: 'I am an editor',
+    introduction: '普通管理者',
     name: 'college_admin'
   }
 }
