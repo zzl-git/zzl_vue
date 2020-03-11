@@ -47,17 +47,12 @@ export default {
     ])
   },
   mounted(){
-
-    this.getIntroduction()
-
+    this.$store.dispatch('user/getInfo').then((data)=>{
+      let { introduction } = data
+      this.title = introduction
+    })
   },
   methods: {
-    getIntroduction() {
-       this.$store.dispatch('user/getInfo').then((data) => {
-        let { introduction } = data
-        this.title = introduction
-      })
-    },
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },

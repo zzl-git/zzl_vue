@@ -1,12 +1,11 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo } from '@/api/public/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
   return {
     token: getToken(),
-    name: '',
-    avatar: ''
+    name: ''
   }
 }
 
@@ -21,9 +20,6 @@ const mutations = {
   },
   SET_NAME: (state, name) => {
     state.name = name
-  },
-  SET_AVATAR: (state, avatar) => {
-    state.avatar = avatar
   }
 }
 
@@ -52,12 +48,8 @@ const actions = {
         if (!data) {
           reject('验证失败，请重新登录')
         }
-
-        const { name, avatar } = data
-
+        const { name } = data
         commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        
         resolve(data)
       }).catch(error => {
         reject(error)

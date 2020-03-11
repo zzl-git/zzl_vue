@@ -32,7 +32,7 @@ export default [
       if (!token) {
         return {
           code: 60204,
-          message: 'Account and password are incorrect.'
+          message: '帐户和密码不正确。'
         }
       }
 
@@ -55,7 +55,7 @@ export default [
       if (!info) {
         return {
           code: 50008,
-          message: 'Login failed, unable to get user details.'
+          message: '登录失败，无法获取用户详细信息。'
         }
       }
 
