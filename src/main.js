@@ -15,6 +15,20 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import ECharts from 'vue-echarts'//echarts引入
+
+// 手动引入 ECharts 各模块来减小打包体积
+import 'echarts/lib/chart/bar'
+import 'echarts/lib/chart/pie'
+import 'echarts/lib/component/tooltip'
+import 'echarts/lib/chart/line'
+import 'echarts/lib/component/polar'
+import 'echarts/lib/component/legend'
+
+
+// 注册echarts
+Vue.component('v-chart', ECharts)
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

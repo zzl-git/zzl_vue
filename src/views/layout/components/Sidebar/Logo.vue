@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       title: '管理系统',
-      logo: require('@/layout/components/Sidebar/imgs/logo.png')
+      logo: require('@/views/layout/components/Sidebar/imgs/logo.png')
     }
   }
 }
