@@ -5,53 +5,128 @@
 </template>
 
 <script>
+let scale = 1;
+let echartData = [{
+    value: 2154,
+    name: '部门一'
+}, {
+    value: 3854,
+    name: '部门二'
+}, {
+    value: 3515,
+    name: '部门三'
+}, {
+    value: 3515,
+    name: '部门四'
+}, {
+    value: 3854,
+    name: '部门五'
+}, {
+    value: 2154,
+    name: '部门六'
+}]
+let rich = {
+    yellow: {
+        color: "#ffc72b",
+        fontSize: 30 * scale,
+        padding: [5, 4],
+        align: 'center'
+    },
+    total: {
+        color: "#ffc72b",
+        fontSize: 40 * scale,
+        align: 'center'
+    },
+    white: {
+        color: "#40c9c6",
+        align: 'center',
+        fontSize: 14 * scale,
+        padding: [21, 0]
+    },
+    blue: {
+        color: '#49dff0',
+        fontSize: 16 * scale,
+        align: 'center'
+    },
+    hr: {
+        borderColor: '#0b5263',
+        width: '100%',
+        borderWidth: 1,
+        height: 0,
+    }
+}
 export default {
+    
   name: 'chartPie',
   data () {
     return {
       polar: {
-          tooltip: {
-              trigger: 'item',
-              formatter: '{a} <br/>{b}: {c} ({d}%)'
-          },
-          legend: {
-              orient: 'vertical',
-              left: 10,
-              data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-          },
-          series: [
-              {
-                  name: '访问来源',
-                  type: 'pie',
-                  radius: ['50%', '70%'],
-                  avoidLabelOverlap: false,
-                  label: {
-                      normal: {
-                          show: false,
-                          position: 'center'
-                      },
-                      emphasis: {
-                          show: true,
-                          textStyle: {
-                              fontSize: '30',
-                              fontWeight: 'bold'
-                          }
-                      }
-                  },
-                  labelLine: {
-                      normal: {
-                          show: false
-                      }
-                  },
-                  data: [
-                      {value: 335, name: '直接访问'},
-                      {value: 310, name: '邮件营销'},
-                      {value: 234, name: '联盟广告'},
-                      {value: 135, name: '视频广告'},
-                      {value: 1548, name: '搜索引擎'}
-                  ]
-              }
-          ],
+            // backgroundColor: '#40c9c6',
+            title: {
+                text:'总数',
+                left:'center',
+                top:'53%',
+                padding:[24,0],
+                textStyle:{
+                    color:'#40c9c6',
+                    fontSize:18*scale,
+                    align:'center'
+                }
+            },
+            legend: {
+                selectedMode:false,
+                formatter: function(name) {
+                    var total = 0; //各科正确率总和
+                    var averagePercent; //综合正确率
+                    echartData.forEach(function(value, index, array) {
+                        total += value.value;
+                    });
+                    return '{total|' + total + '}';
+                },
+                data: [echartData[0].name],
+                // data: ['高等教育学'],
+                // itemGap: 50,
+                left: 'center',
+                top: 'center',
+                icon: 'none',
+                align:'center',
+                textStyle: {
+                    color: "#f4516c",
+                    fontSize: 16 * scale,
+                    rich: rich
+                },
+            },
+            series: [{
+                name: '总数',
+                type: 'pie',
+                radius: ['42%', '50%'],
+                hoverAnimation: false,
+                color: ['#c487ee', '#deb140', '#49dff0', '#034079', '#6f81da', '#00ffb4'],
+                label: {
+                    normal: {
+                        formatter: function(params, ticket, callback) {
+                            var total = 0; //考生总数量
+                            var percent = 0; //考生占比
+                            echartData.forEach(function(value, index, array) {
+                                total += value.value;
+                            });
+                            percent = ((params.value / total) * 100).toFixed(1);
+                            return '{white|' + params.name + '}\n{hr|}\n{yellow|' + params.value + '}\n{blue|' + percent + '%}';
+                        },
+                        rich: rich
+                    },
+                },
+                labelLine: {
+                    normal: {
+                        length: 55 * scale,
+                        length2: 0,
+                        lineStyle: {
+                            color: '#0b5263'
+                        }
+                    }
+                },
+                data: echartData
+            }],
         animationDuration: 2000
       }
     }

@@ -17,13 +17,14 @@ import '@/permission' // permission control
 
 import ECharts from 'vue-echarts'//echarts引入
 
-// 手动引入 ECharts 各模块来减小打包体积
+// 手动引入 ECharts 各模块来减小打包体积 
 import 'echarts/lib/chart/bar'
 import 'echarts/lib/chart/pie'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/chart/line'
 import 'echarts/lib/component/polar'
 import 'echarts/lib/component/legend'
+import 'echarts/lib/component/title'
 
 
 // 注册echarts
