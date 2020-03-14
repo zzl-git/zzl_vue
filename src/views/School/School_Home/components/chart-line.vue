@@ -5,9 +5,9 @@
 </template>
 
 <script>
-let data_val=[8562, 9522, 6212, 7515, 9565, 8456, 5454],
-    xAxis_val=['2014', '2015', '2016', '2017', '2018', '2019', '2020'];
-let data_val1=[0,0,0,0,0,0,0];
+let data_val=[6212, 7515, 9565, 8456, 200000],
+    xAxis_val=['2016', '2017', '2018', '2019', '2020'];
+let data_val1=[0,0,0,0,0];
 export default {
     
   name: 'chartPie',
@@ -27,11 +27,9 @@ export default {
                 backgroundColor:'#384157',
                 borderColor:'#384157',
                 borderWidth:1,
-                formatter:'{b}:{c}',
+                formatter:'{b}:{c}'+"人",
                 extraCssText:'box-shadow: 0 0 5px rgba(0, 0, 0, 1)'
             },
-            
-        
             xAxis: {
                 data: xAxis_val,
                 boundaryGap:false,
@@ -48,6 +46,7 @@ export default {
                 }
             },
             yAxis: { 
+               
                 ayisLine:{
                     show:false
                 },
@@ -59,7 +58,8 @@ export default {
                 splitLine:{
                     show:true,
                     lineStyle:{
-                        color:'#2e3547'
+                        color:'#2e3547',
+                        type: 'dotted'
                     }
                 },
                 axisLine: {
@@ -167,5 +167,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+    
 </style>

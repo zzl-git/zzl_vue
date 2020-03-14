@@ -21,8 +21,15 @@ export default {
                   {product: '其他', '2017': 86.4, '2018': 65.2, '2019': 82.5}
               ]
           },
-          xAxis: {type: 'category'},
-          yAxis: {},
+          xAxis: {
+              type: 'category',
+              name: '名称',
+              nameLocation: 'end'
+            },
+          yAxis: {
+            name: '单位/%',
+            nameLocation: 'end',
+          },
           series: [
               {
                 type: 'bar',
@@ -51,16 +58,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chart-box {
-  width: 100%;
-  height: 500px;
-  padding: 20px;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-}
-.echarts {
-  width: 100% !important;
-  height: 100% !important;
-}
 
 </style>
