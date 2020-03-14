@@ -69,6 +69,8 @@ export default {
   background-color: #fff;
   border-radius: 6px;
   box-shadow: 1px 1px 2px #eee;
+  width: 370px;
+  height: 350px;
 }
 .login-main {
   border-radius: 3px;
