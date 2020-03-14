@@ -2,13 +2,13 @@
   <el-form class="login-form" status-icon :rules="loginRules" ref="loginForm" :model="loginForm" label-width="0">
     <el-form-item prop="username">
       <el-input size="small" @keyup.enter.native="handleLogin" v-model="loginForm.username" auto-complete="off" placeholder="请输入用户名">
-        <i slot="prefix" class="icon-yonghu"></i>
+        <i slot="prefix" class="el-icon-s-custom"></i>
       </el-input>
     </el-form-item>
     <el-form-item prop="password">
       <el-input ref="password" size="small" @keyup.enter.native="handleLogin" :type="passwordType" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码">
         <i class="el-icon-view el-input__icon" slot="suffix" @click="showPwd"></i>
-        <i slot="prefix" class="icon-mima"></i>
+        <i slot="prefix" class="el-icon-lock"></i>
       </el-input>
     </el-form-item>
     <el-checkbox v-model="checked">记住账号</el-checkbox>

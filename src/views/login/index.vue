@@ -2,7 +2,7 @@
   <div class="login-container pull-height" @keyup.enter.native="handleLogin">
     <div class="login-border  animated fadeInRight">
       <div class="login-main">
-        <h4 class="login-title">登录登录管理系统
+        <h4 class="login-title">登录管理系统
         </h4>
         <el-tabs v-model="activeName">
           <el-tab-pane label="账号密码" name="user">
