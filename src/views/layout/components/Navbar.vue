@@ -22,6 +22,10 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+
+    <div class="right-menu">
+        <screenfull class="screenfull"></screenfull>
+    </div>
   </div>
 </template>
 
@@ -29,6 +33,7 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import Screenfull from './Screenfull/index'
 
 export default {
   data() {
@@ -38,7 +43,8 @@ export default {
   },
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    Screenfull
   },
   computed: {
     ...mapGetters([
@@ -65,6 +71,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.screenfull {
+  margin-right: 10px;
+  cursor: pointer;
+}
 .navbar {
   height: 50px;
   overflow: hidden;
@@ -120,7 +130,7 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 5px;
+        // margin-top: 5px;
         position: relative;
         cursor: pointer;
        span {
