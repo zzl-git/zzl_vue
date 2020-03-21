@@ -37,12 +37,10 @@ router.beforeEach((to, from, next) => {
           if(name == 'school_admin'){
             router.options.routes = schoolRoutes;//如果没有这一段就不会生效这是因为，router.options.routes 不是响应式的。
             router.addRoutes(schoolRoutes)
-            // next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
             next({ path: '/' })
           }else if(name == 'college_admin'){
             router.options.routes = collegeRoutes;//如果没有这一段就不会生效这是因为，router.options.routes 不是响应式的。
             router.addRoutes(collegeRoutes)
-            // next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
             next({ path: '/' })
           }else{
             store.dispatch('user/resetToken')
