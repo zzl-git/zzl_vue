@@ -3,7 +3,7 @@ import Mock from 'mockjs'
 var Random = Mock.Random
 
 const data = Mock.mock({
-  'items|10': [{
+  'items|300': [{
     id: '@id',
     name:()=> Random.cname(),
     address: ()=>Mock.mock('@county(true)'),
