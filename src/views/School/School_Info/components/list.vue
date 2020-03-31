@@ -78,6 +78,7 @@ export default {
           total: null,//总条数
       }
   },
+  props:['grade','college'],
   created() {
       this.getData()
   },
@@ -87,6 +88,7 @@ export default {
         this.showData = this.data.filter((v,ind)=> {
             return ind>=this.page*(this.count-1) && ind<this.page*this.count
         })
+        this.total = this.showData.length
      },
      //获取数据
      getData() {
@@ -104,6 +106,18 @@ export default {
      currentChange(v) {
          this.count = v
          this.filterData()
+     },
+     hendleShowData() {
+        this.showData = []
+        const data= this.data.filter((v,ind)=> {
+              return v.grade == this.grade
+          }).filter((v)=>{
+            return v.college == this.college
+        })
+        this.showData.push(...data) 
+        this.count = 1
+        this.filterData()
+        
      }
     
  }

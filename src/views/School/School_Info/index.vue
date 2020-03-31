@@ -25,11 +25,15 @@
         </el-select>
       </div>
       <div class="buttonBox">
-        <el-button type="primary">搜索</el-button>
+        <el-button type="primary" @click="hendleData">搜索</el-button>
       </div>
     </div>
     <div class="atudentList">
-      <student-list></student-list>
+      <student-list
+       v-if="hendleData1"
+      ref="studentList" 
+      :grade='grade' 
+      :college='college'></student-list>
     </div>
   </div>
 </template>
@@ -41,8 +45,9 @@ export default {
   name: 'School_info',
   data() {
     return {
+       hendleData1: true,
       grade: '',//年级 
-      college:'',
+      college:'',//学院
       collegeList:[{
           value: '商学院',
           label: '商学院'
@@ -110,6 +115,15 @@ export default {
         }],
     }
   },
+  methods:{
+    hendleData(){
+       this.$refs.studentList.hendleShowData()
+        this.hendleData1 = false
+       this.$nextTick(()=>{
+            this.hendleData1 = true
+        })
+    }
+  }
  
 }
 </script>
