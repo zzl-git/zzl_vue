@@ -37,11 +37,11 @@ router.beforeEach((to, from, next) => {
           if(name == 'school_admin'){
             router.options.routes = schoolRoutes;//如果没有这一段就不会生效这是因为，router.options.routes 不是响应式的。
             router.addRoutes(schoolRoutes)
-            next({ path: '/' })
+            next()
           }else if(name == 'college_admin'){
             router.options.routes = collegeRoutes;//如果没有这一段就不会生效这是因为，router.options.routes 不是响应式的。
             router.addRoutes(collegeRoutes)
-            next({ path: '/' })
+            next()
           }else{
             store.dispatch('user/resetToken')
             Message.error(error || 'Has Error')
@@ -51,9 +51,9 @@ router.beforeEach((to, from, next) => {
         })
         next()
       }
-       
-       
+      next()
     }
+    next()
   } else {
     /* has no token*/
 

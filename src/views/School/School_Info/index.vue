@@ -26,26 +26,54 @@
       </div>
       <div class="buttonBox">
         <el-button type="primary" @click="hendleData">搜索</el-button>
+        <el-button type="primary" @click="allData">全部信息</el-button>
       </div>
     </div>
-    <div class="atudentList">
+    <!-- 表格组件 -->
+    <div class="atudentList"  v-loading="loading">
       <student-list
-       v-if="hendleData1"
       ref="studentList" 
-      :grade='grade' 
-      :college='college'></student-list>
+      :showData='showData' 
+      ></student-list>
     </div>
+    <!-- 分页器 -->
+     <div class="pagination">
+        <el-pagination
+            v-if="showPagination"
+            background
+            @current-change= "currentChange"
+            layout="total,prev, pager, next"
+            :page-size='page'
+            :pager-count='5'
+            :current-page = 'count'
+            :total="total">
+        </el-pagination>
+    </div>
+    <!-- 编辑查看框 -->
+    <el-dialog title="信息列表" :visible.sync="dialogFormVisible">
+      <el-form :model="formData">
+        <!-- <el-form-item label="活动名称">
+          <el-input v-model="form.name" autocomplete="off"></el-input>
+        </el-form-item> -->
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import StudentList from './components/list'
+import { getList } from '@/api/school/studentList'
 export default {
-  components: {StudentList},
+  components: { StudentList },
   name: 'School_info',
   data() {
     return {
-       hendleData1: true,
+      dialogFormVisible:false,//控制弹框弹框
+      showPagination: true,
       grade: '',//年级 
       college:'',//学院
       collegeList:[{
@@ -113,16 +141,78 @@ export default {
           value: '2019',
           label: '2019'
         }],
+        showData:[],//展示的数据
+        data:[],//全部数据
+        loading: true,
+        count: 1,//当前页
+        page: 10,//展示个数
+        total: null,//总条数
+        formData: {}
     }
+  },
+  created(){
+    this.getData()
   },
   methods:{
     hendleData(){
-       this.$refs.studentList.hendleShowData()
-        this.hendleData1 = false
-       this.$nextTick(()=>{
-            this.hendleData1 = true
+       this.hendleShowData()
+    },
+    //数据过滤
+     filterData(data) {
+        this.showData = data.filter((v,ind)=> {
+            return ind>=this.page*(this.count-1) && ind<this.page*this.count
         })
-    }
+        this.total = data.length
+     },
+     //获取数据
+     getData() {
+        getList().then((res)=>{
+            this.data = res.data.items
+            this.total = this.data.length
+            this.filterData(this.data)
+            this.loading = false
+        }) 
+     },
+     handleClick() {
+
+     },
+    //  显示全部数据
+     allData(){
+       this.showData = this.data;
+       this.count = 1;
+       this.total = this.data.showData
+       this.grade = "";
+       this.college = "";
+       this.filterData(this.showData)
+     },
+     //分页器当前页
+     currentChange(v) {
+        this.count = v
+        if(this.grade||this.college){
+          this.hendleShowData(v)
+          return
+        }
+        this.filterData(this.data)
+     },
+     hendleShowData(num=1) {
+        this.showPagination = false
+        this.showData = []
+        const data= this.data.filter((v,ind)=> {
+              if(!this.grade){
+                return true
+              }
+              return v.grade == this.grade
+          }).filter((v)=>{
+            if(!this.college){
+                return true
+              }
+            return v.college == this.college
+        })
+        this.showData.push(...data) 
+        this.count = num
+        this.filterData(this.showData)
+        this.showPagination = true
+     }
   }
  
 }
@@ -139,4 +229,11 @@ export default {
       margin: 0 15px;
     }
   }
+  .studentTable {
+        margin-top: 15px;
+    }
+    .pagination {
+        text-align: right;
+        margin-top: 15px;
+    }
 </style>

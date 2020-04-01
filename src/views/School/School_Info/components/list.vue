@@ -1,5 +1,5 @@
 <template>
-  <div class="studentTable" v-loading="loading">
+  <div class="studentTable">
       <el-table
         :data="showData"
         border
@@ -51,85 +51,30 @@
         </template>
         </el-table-column>
     </el-table>
-    <div class="pagination">
-        <el-pagination
-            background
-            @current-change= "currentChange"
-            layout="total,prev, pager, next"
-            :page-size='page'
-            :pager-count='5'
-            :total="total">
-        </el-pagination>
-    </div>
+   
   </div>
 </template>
 
 <script>
-import { getList } from '@/api/school/studentList'
+
 export default {
   name: 'Student_List',
   data() {
       return {
-          showData:[],
-          data:[],
-          loading: true,
-          count: 1,//当前页
-          page: 10,//展示个数
-          total: null,//总条数
+          
       }
   },
-  props:['grade','college'],
+  props:['showData'],
   created() {
-      this.getData()
+
   },
  methods:{
-     //数据过滤
-     filterData() {
-        this.showData = this.data.filter((v,ind)=> {
-            return ind>=this.page*(this.count-1) && ind<this.page*this.count
-        })
-        this.total = this.showData.length
-     },
-     //获取数据
-     getData() {
-        getList().then((res)=>{
-            this.data = res.data.items
-            this.total = this.data.length
-            this.filterData()
-            this.loading = false
-        }) 
-     },
-     handleClick() {
-
-     },
-     //分页器当前页
-     currentChange(v) {
-         this.count = v
-         this.filterData()
-     },
-     hendleShowData() {
-        this.showData = []
-        const data= this.data.filter((v,ind)=> {
-              return v.grade == this.grade
-          }).filter((v)=>{
-            return v.college == this.college
-        })
-        this.showData.push(...data) 
-        this.count = 1
-        this.filterData()
-        
-     }
+     
     
  }
 }
 </script>
 
 <style lang="scss" scoped>
-    .studentTable {
-        margin-top: 15px;
-    }
-    .pagination {
-        text-align: right;
-        margin-top: 15px;
-    }
+    
 </style>
