@@ -9,7 +9,7 @@ import Layout from '@/views/layout'
           path: 'School_Index',
           name: 'SchoolIndex',
           component: () => import('@/views/School/School_Home/index'),
-          meta: { title: '首页', icon: 'dashboard' }
+          meta: { title: '首页', icon: 'dashboard', affix: true }
         }]
       },
       {

@@ -49,18 +49,7 @@
             :total="total">
         </el-pagination>
     </div>
-    <!-- 编辑查看框 -->
-    <el-dialog title="信息列表" :visible.sync="dialogFormVisible">
-      <el-form :model="formData">
-        <!-- <el-form-item label="活动名称">
-          <el-input v-model="form.name" autocomplete="off"></el-input>
-        </el-form-item> -->
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-      </div>
-    </el-dialog>
+    
   </div>
 </template>
 
@@ -72,7 +61,6 @@ export default {
   name: 'School_info',
   data() {
     return {
-      dialogFormVisible:false,//控制弹框弹框
       showPagination: true,
       grade: '',//年级 
       college:'',//学院
@@ -147,7 +135,6 @@ export default {
         count: 1,//当前页
         page: 10,//展示个数
         total: null,//总条数
-        formData: {}
     }
   },
   created(){

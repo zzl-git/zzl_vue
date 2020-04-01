@@ -56,7 +56,6 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     /* has no token*/
-
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
       next()

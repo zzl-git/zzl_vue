@@ -10,7 +10,7 @@ import Layout from '@/views/layout'
           path: 'College_Index',
           name: 'CollegeIndex',
           component: () => import('@/views/College/College_Home/index'),
-          meta: { title: '首页', icon: 'dashboard' }
+          meta: { title: '首页', icon: 'dashboard', affix: true }
         }]
       },
       { path: '*', redirect: '/404', hidden: true }
