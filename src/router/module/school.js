@@ -20,12 +20,7 @@ import Layout from '@/views/layout'
           path: 'School_Info_Index',
           name: 'SchoolInfoIndex',
           component: () => import('@/views/School/School_Info/index'),
-          meta: { title: '信息', icon: 'dashboard' }
-        },{
-          path: 'School_Info_List',
-          name: 'SchoolInfoList',
-          component: () => import('@/views/School/School_Info/list'),
-          meta: { title: '信息列表', icon: 'dashboard' }
+          meta: { title: '信息', icon: 'dashboard'}
         }]
       },
       { path: '*', redirect: '/404', hidden: true }

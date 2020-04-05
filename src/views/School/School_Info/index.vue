@@ -29,11 +29,13 @@
         <el-button type="primary" @click="allData">全部信息</el-button>
       </div>
     </div>
-    <!-- 表格组件 -->
+    <!-- 表格组件  -->
     <div class="atudentList"  v-loading="loading">
       <student-list
       ref="studentList" 
-      :showData='showData' 
+      :showData='showData'
+      @handleClick = "handleClick" 
+      @delData = "delData" 
       ></student-list>
     </div>
     <!-- 分页器 -->
@@ -56,6 +58,7 @@
 <script>
 import StudentList from './components/list'
 import { getList } from '@/api/school/studentList'
+import { mapGetters  } from 'vuex'
 export default {
   components: { StudentList },
   name: 'School_info',
@@ -64,81 +67,22 @@ export default {
       showPagination: true,
       grade: '',//年级 
       college:'',//学院
-      collegeList:[{
-          value: '商学院',
-          label: '商学院'
-        },{
-          value: '马克思主义学院',
-          label: '马克思主义学院'
-        }, {
-          value: '教育科学学院',
-          label: '教育科学学院'
-        }, {
-          value: '体育学院',
-          label: '体育学院'
-        }, {
-          value: '文学与传媒学院',
-          label: '文学与传媒学院'
-        }, {
-          value: '外国语学院',
-          label: '外国语学院'
-        }, {
-          value: '历史与档案学院',
-          label: '历史与档案学院'
-        }, {
-          value: '数学与大数据学院',
-          label: '数学与大数据学院'
-        }, {
-          value: '物理与电子科学学院',
-          label: '物理与电子科学学院'
-        }, {
-          value: '化学与材料学院',
-          label: '化学与材料学院'
-        }, {
-          value: '地理与资源学院',
-          label: '地理与资源学院'
-        }, {
-          value: '生物科学学院',
-          label: '生物科学学院'
-        }, {
-          value: '旅游文化学院',
-          label: '旅游文化学院'
-        }, {
-          value: '音乐舞蹈学院',
-          label: '音乐舞蹈学院'
-        }, {
-          value: '美术与设计学院',
-          label: '美术与设计学院'
-        }, {
-          value: '创新创业学院',
-          label: '创新创业学院'
-        }, {
-          value: '继续教育学院',
-          label: '继续教育学院'
-        }],
-      gradeList: [{
-          value: '2016',
-          label: '2016'
-        }, {
-          value: '2017',
-          label: '2017'
-        }, {
-          value: '2018',
-          label: '2018'
-        }, {
-          value: '2019',
-          label: '2019'
-        }],
-        showData:[],//展示的数据
-        data:[],//全部数据
-        loading: true,
-        count: 1,//当前页
-        page: 10,//展示个数
-        total: null,//总条数
+      showData:[],//展示的数据
+      data:[],//全部数据
+      loading: true,
+      count: 1,//当前页
+      page: 10,//展示个数
+      total: null,//总条数
     }
   },
   created(){
     this.getData()
+  },
+  computed: {
+    ...mapGetters([
+      'gradeList',
+      'collegeList',
+    ])
   },
   methods:{
     hendleData(){
@@ -160,8 +104,52 @@ export default {
             this.loading = false
         }) 
      },
-     handleClick() {
-
+    //  更改数据
+     handleClick(data) {
+       let showDataInd = this.showData.findIndex((v)=>{
+         return v.id == data.id
+       })
+        let dataInd = this.data.findIndex((v)=>{
+         return v.id == data.id
+       })
+        // this.showData[showDataInd] = data
+        this.data[dataInd] = data
+        this.$set(this.showData, showDataInd, data)//$set api 更新dom
+     },
+    //  删除数据
+     delData(id){
+       this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.loading = true
+          let showDataInd = this.showData.findIndex((v)=>{
+              return v.id == id
+            })
+              let dataInd = this.data.findIndex((v)=>{
+              return v.id == id
+            })
+          this.showData.splice(showDataInd,1)
+          this.data.splice(dataInd,1)
+          if(this.grade||this.college){
+            this.hendleShowData(this.count)
+          }else {
+            this.filterData(this.data)
+          }
+          
+          this.loading = false
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+        
      },
     //  显示全部数据
      allData(){
@@ -181,6 +169,7 @@ export default {
         }
         this.filterData(this.data)
      },
+    //  根据年级 学校查询
      hendleShowData(num=1) {
         this.showPagination = false
         this.showData = []

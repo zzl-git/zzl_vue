@@ -7,5 +7,7 @@ const getters = {
   visitedViews: state => state.tagsView.visitedViews,
   cachedViews: state => state.tagsView.cachedViews,
   permission_routes: state => state.permission.routes,
+  gradeList: state => state.school.gradeList,//年级列表
+  collegeList: state => state.school.collegeList,//学院列表
 }
 export default getters
