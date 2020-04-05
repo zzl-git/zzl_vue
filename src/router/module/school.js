@@ -15,6 +15,7 @@ import Layout from '@/views/layout'
       {
         path: '/School_Info',
         component: Layout,
+        alwaysShow: true,
         meta: { title: '信息统计', icon: 'dashboard' },
         children: [{
           path: 'School_Info_Index',
