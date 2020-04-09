@@ -18,5 +18,7 @@ module.exports = {
    * @description 侧边导航显示方式
    */
   
-  device: 'desktop'//mobile  desktop
+  device: 'desktop',//mobile  desktop
+  
+  tagsView: true,
 }
