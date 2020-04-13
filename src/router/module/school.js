@@ -24,6 +24,18 @@ import Layout from '@/views/layout'
           meta: { title: '信息', icon: 'dashboard'}
         }]
       },
+      {
+        path: '/School_Introduce',
+        component: Layout,
+        alwaysShow: true,
+        meta: { title: '学校信息', icon: 'dashboard' },
+        children: [{
+          path: 'Introduce_Index',
+          name: 'IntroduceIndex',
+          component: () => import('@/views/School/School_Introduce/index'),
+          meta: { title: '介绍', icon: 'dashboard'}
+        }]
+      },
       { path: '*', redirect: '/404', hidden: true }
 ];
 

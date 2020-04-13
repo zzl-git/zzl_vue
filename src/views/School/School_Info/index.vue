@@ -195,9 +195,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .content {
-    margin: 20px;
-  }
   .head {
     display: flex;
     flex-wrap: wrap;

@@ -1,4 +1,3 @@
-
 const tokens = {
   school: {
     token: 'school_token'
@@ -26,7 +25,13 @@ export default [
     type: 'post',
     response: config => {
       const { username } = config.body
-      const token = tokens[username]
+      let token
+      if(username === 'school') {
+        token = tokens[username]
+      }else {
+        token = tokens['college']
+      }
+      
 
       // mock error
       if (!token) {

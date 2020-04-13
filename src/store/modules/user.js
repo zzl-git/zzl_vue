@@ -5,7 +5,8 @@ import { resetRouter } from '@/router'
 const getDefaultState = () => {
   return {
     token: getToken(),
-    name: ''
+    name: '',
+    valid_map: ['school', 'college'],
   }
 }
 

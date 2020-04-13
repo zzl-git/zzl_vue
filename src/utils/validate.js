@@ -1,3 +1,5 @@
+
+import store from '@/store'
 /**
  * Created by PanJiaChen on 16/11/18.
  */
@@ -15,6 +17,6 @@ export function isExternal(path) {
  * @returns {Boolean}
  */
 export function validUsername(str) {
-  const valid_map = ['school', 'college']
+  const valid_map = store.state.user.valid_map
   return valid_map.indexOf(str.trim()) >= 0
 }

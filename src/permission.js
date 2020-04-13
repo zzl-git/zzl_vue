@@ -67,7 +67,10 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-router.afterEach(() => {
+router.afterEach((to, from, next) => {
   // finish progress bar
   NProgress.done()
+  if(from.fullPath == '/login') {
+    router.go(0)//第一次登陆时刷新路由
+  }
 })
