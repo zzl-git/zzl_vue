@@ -36,6 +36,18 @@ import Layout from '@/views/layout'
           meta: { title: '介绍', icon: 'dashboard'}
         }]
       },
+      {
+        path: '/School_Examination',
+        component: Layout,
+        alwaysShow: true,
+        meta: { title: '审核管理', icon: 'dashboard' },
+        children: [{
+          path: 'Examination_Index',
+          name: 'ExaminationIndex',
+          component: () => import('@/views/School/School_Examination/index'),
+          meta: { title: '场地审核', icon: 'dashboard'}
+        }]
+      },
       { path: '*', redirect: '/404', hidden: true }
 ];
 
