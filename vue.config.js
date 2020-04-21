@@ -30,7 +30,7 @@ module.exports = {
   lintOnSave: false,//process.env.NODE_ENV === 'development'
   productionSourceMap: false,
   devServer: {
-    host: "192.168.2.135",
+    host: "192.168.7.101",
     port: port,
     // open: true,//在devServer启动且第一次构建完成时，自动用我们的系统的默认浏览器去打开要开发的网页
     overlay: {
