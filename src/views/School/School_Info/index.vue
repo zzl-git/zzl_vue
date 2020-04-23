@@ -115,6 +115,10 @@ export default {
         // this.showData[showDataInd] = data
         this.data[dataInd] = data
         this.$set(this.showData, showDataInd, data)//$set api 更新dom
+        this.$message({
+          message: '修改成功',
+          type: 'success'
+      });
      },
     //  删除数据
      delData(id){
@@ -159,6 +163,10 @@ export default {
        this.grade = "";
        this.college = "";
        this.filterData(this.showData)
+      this.$message({
+        message: '数据更新成功',
+        type: 'success'
+      });
      },
      //分页器当前页
      currentChange(v) {
@@ -188,6 +196,10 @@ export default {
         this.count = num
         this.filterData(this.showData)
         this.showPagination = true
+        this.$message({
+          message: '数据更新成功',
+          type: 'success'
+      });
      }
   }
  

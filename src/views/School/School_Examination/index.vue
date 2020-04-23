@@ -14,7 +14,8 @@
                         <el-card class="field-card">
                             <div slot="header" class="field-head">
                                 <span>{{item.name}}</span>
-                                <el-tag :type="item.status===0?'warning':'success'">{{item.status|statusToString}}</el-tag>
+                                <span>{{item.rejectReason}}</span>
+                                <el-tag :type="item.status===0?'warning':item.status===1?'':'success'">{{item.status|statusToString}}</el-tag>
                             </div>
                             <div class="field-body">
                                 <div class="field-info">
@@ -30,8 +31,8 @@
                                     </el-popover>
                                 </div>
                                 <div class="field-btn">
-                                    <el-button type="success" size="small" icon="el-icon-circle-check">通过</el-button>
-                                    <el-button type="danger" size="small" icon="el-icon-circle-close">驳回</el-button>
+                                    <el-button type="success" :disabled="item.status !==1" size="small" icon="el-icon-circle-check" @click="rejectAdopt(item.id)">通过</el-button>
+                                    <el-button type="danger"  :disabled="item.status !==1" size="small" icon="el-icon-circle-close" @click="showRejectDialog(item.id)">驳回</el-button>
                                 </div>
                             </div>
                         </el-card>
@@ -50,6 +51,23 @@
                 </el-pagination>
             </el-tabs>
         </div>
+
+        <el-dialog
+            title="驳回原因"
+            :visible.sync="rejectDialog"
+            width="30%"
+            >
+            <el-input
+                type="textarea"
+                :rows="2"
+                placeholder="请输入驳回原因"
+                v-model.trim="rejectText">
+            </el-input>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="rejectDialog = false;$message('已取消')">取 消</el-button>
+                <el-button type="primary" @click="rejectFnc">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -63,7 +81,10 @@ export default {
         list:[],
         showList:[],
         total: 0,//总条数
-        page: 6,//每页展示条数
+        page: 9,//每页展示条数
+        rejectDialog: false,//驳回原因输入框
+        rejectText: '',//驳回理由
+        openId: ''//编辑内容的id
     }
   },
   filters: {
@@ -80,36 +101,13 @@ export default {
     },
   watch:{
       tabName(){
-         this.screenList()
+          this.currentFilterFnc(1)
       }
   },
   created(){
       this.getlist()
   },
   methods:{
-    //   筛选状态
-      screenList(){
-          switch(this.tabName) {
-                case '1':
-                    this.showList = this.list
-                   break;
-                case '2':
-                    this.filterFnc(1)
-                   break;
-                case '3':
-                    this.filterFnc(2)
-                   break;
-                case '4':
-                    this.filterFnc(0)
-                break;
-            } 
-      },
-    //   状态过滤函数
-      filterFnc(num){
-           this.showList = this.list.filter((v)=>{
-                return v.status ===num
-            })
-      },
     //   获取数据
       getlist(){
           getExaminationList().then((res)=>{
@@ -125,9 +123,78 @@ export default {
       },
     //   分页器过滤函数
       currentFilterFnc(num){
-          this.showList = this.list.filter((v,ind)=>{
-              return this.page*(num-1)< ind &&ind <=this.page*num
+          let data = this.list.filter((v,ind)=>{
+              return this.tabName==="1"? true : v.status ===this.getStatus()
           })
+          this.total = data.length
+          this.showList = data.filter((v,ind)=>{
+              return this.page*(num-1)<= ind &&ind <this.page*num
+          })
+      },
+      getStatus(){
+          switch(this.tabName){
+                case '2':
+                    return 1;
+                case '3':
+                    return 2;
+                case '4':
+                    return 0;
+          }
+      },
+      //驳回的方法
+      rejectFnc(){
+         this.$confirm('确认要驳回么, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+           }).then(()=> {
+            this.rejectDialog = false
+            let index = this.list.findIndex((v,ind)=>{
+                return v.id === this.openId
+            })
+            this.list[index].rejectReason = this.rejectText
+            this.list[index].status = 0
+            this.currentFilterFnc(1)
+            this.rejectText = ''
+            this.$message({
+                message: '驳回成功',
+                type: 'success'
+            });
+          })
+          .catch(()=> {
+              this.rejectDialog = false
+              this.rejectText = ''
+              this.$message('已取消');
+          });
+      },
+    //   显示驳回输入框
+      showRejectDialog(id){
+          this.openId = id
+          this.rejectDialog = true
+      },
+      rejectAdopt(id){
+           this.$confirm('是否通过审核?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+           })
+           .then(()=> {
+               let index = this.list.findIndex((v,ind)=>{
+                return v.id ===id
+            })
+            this.list[index].status = 2
+            this.$message({
+                message: '操作成功',
+                type: 'success'
+            });
+            this.currentFilterFnc(1)
+           })
+           .catch(()=> {
+              this.rejectDialog = false
+              this.rejectText = ''
+              this.$message('已取消');
+          });
+           
       }
   }
 }
@@ -171,6 +238,6 @@ export default {
     }
     .pagination {
         margin-top: 25px;
-        text-align: center;
+        text-align: right;
     }
 </style>

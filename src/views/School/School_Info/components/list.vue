@@ -5,11 +5,6 @@
         border
         style="width: 100%">
         <el-table-column
-            type="selection"
-            align="center"
-            width="55">
-        </el-table-column>
-        <el-table-column
             prop="name"
             label="姓名"
             align="center"
@@ -18,6 +13,12 @@
         <el-table-column
             prop="age"
             label="年龄"
+            align="center"
+            width="100">
+        </el-table-column>
+        <el-table-column
+            prop="sex"
+            label="性别"
             align="center"
             width="100">
         </el-table-column>
@@ -60,6 +61,9 @@
         <el-form-item  label="年龄" prop="age">
           <el-input :disabled="isEdit" v-model="formData.age"></el-input>
         </el-form-item>
+        <el-form-item  label="性别" prop="sex">
+          <el-input :disabled="isEdit" v-model="formData.sex"></el-input>
+        </el-form-item>
         <el-form-item label="年级" prop="grade">
           <el-input :disabled="isEdit" v-model="formData.grade"></el-input>
         </el-form-item>
@@ -96,7 +100,8 @@ export default {
           grade: '',
           name: '',
           address: '',
-          explain: ''
+          explain: '',
+          sex: ''
         }
       }
   },
@@ -115,7 +120,8 @@ export default {
           grade: row.grade,
           name: row.name,
           address: row.address,
-          explain: row.explain
+          explain: row.explain,
+          sex: row.sex
        }
      },
     //  打开编辑框
@@ -129,7 +135,8 @@ export default {
           grade: row.grade,
           name: row.name,
           address: row.address,
-          explain: row.explain
+          explain: row.explain,
+          sex: row.sex
        }
      }
     ,
@@ -142,7 +149,8 @@ export default {
           grade: this.formData.grade,
           name: this.formData.name,
           address: this.formData.address,
-          explain: this.formData.explain
+          explain: this.formData.explain,
+          sex:  this.formData.sex
       }
       this.$emit("handleClick",data)
       this.dialogFormVisible=false
