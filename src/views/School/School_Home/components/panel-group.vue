@@ -6,7 +6,7 @@
             <svg-icon icon-class="system" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">数据段</div>
+            <div class="card-panel-text">日活跃</div>
             <count-to :start-val="0" :end-val="25840" :duration="2600" class="card-panel-num"/>
           </div>
         </div>
@@ -17,7 +17,7 @@
             <svg-icon icon-class="information_1" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">数据段</div>
+            <div class="card-panel-text">月活跃</div>
             <count-to :start-val="0" :end-val="76786" :duration="2600" class="card-panel-num"/>
           </div>
         </div>
@@ -28,7 +28,7 @@
             <svg-icon icon-class="follow" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">数据段</div>
+            <div class="card-panel-text">年活跃</div>
             <count-to :start-val="0" :end-val="45452" :duration="2600" class="card-panel-num"/>
           </div>
         </div>
@@ -40,7 +40,7 @@
             <svg-icon icon-class="activity_1" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">数据段</div>
+            <div class="card-panel-text">总活跃</div>
             <count-to :start-val="0" :end-val="454545" :duration="2600" class="card-panel-num"/>
           </div>
         </div>
